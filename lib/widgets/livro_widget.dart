@@ -8,6 +8,7 @@ import 'package:flutter_app_challenge/data/models/livro_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vocsy_epub_viewer/epub_viewer.dart';
+import 'package:device_info/device_info.dart';
 
 class LivroWidget extends StatefulWidget {
   final LivroModel livro;
@@ -114,9 +115,16 @@ class _LivroWidgetState extends State<LivroWidget> {
   }
 
   void _openEpubViewer() async {
-    var status = await Permission.manageExternalStorage.request();
+    bool permissionStatus;
+    final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
-    if (status.isGranted) {
+    if (deviceInfo.version.sdkInt > 32) {
+      permissionStatus = await Permission.photos.request().isGranted;
+    } else {
+      permissionStatus = await Permission.storage.request().isGranted;
+    }
+
+    if (permissionStatus) {
       VocsyEpub.setConfig(
         themeColor: Theme.of(context).primaryColor,
         identifier: "bookIdentifier",
@@ -129,9 +137,16 @@ class _LivroWidgetState extends State<LivroWidget> {
       await _downloadAndOpenBook();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-              'A permissão de armazenamento é necessária para baixar o livro.'),
+        SnackBar(
+          content: const Text(
+            'A permissão de armazenamento é necessária para baixar o livro.',
+          ),
+          action: SnackBarAction(
+            label: 'Ir para Configurações',
+            onPressed: () {
+              openAppSettings();
+            },
+          ),
         ),
       );
     }
