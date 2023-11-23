@@ -25,4 +25,4 @@ flutter run
 
 Isso iniciará o aplicativo no seu emulador ou dispositivo conectado.
 
-[Download APK](https://github.com/wallissonmart/challenge-2/releases/download/untagged-27a2df6de1fde470ad4d/app-release.apk)
+[Download APK](https://github.com/wallissonmart/challenge-2/releases/download/v1.0.0/app-release.apk)
