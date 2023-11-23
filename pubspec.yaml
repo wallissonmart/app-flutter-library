@@ -41,6 +41,7 @@ dependencies:
   json_serializable: ^5.0.2
   vocsy_epub_viewer: ^2.0.0
   dio: ^4.0.0
+  permission_handler: ^11.1.0
 
 dev_dependencies:
   flutter_test:

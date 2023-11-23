@@ -1,16 +1,26 @@
-# flutter_app_challenge
+# Flutter App Challenge
 
-A new Flutter project.
+Bem-vindo ao Flutter App Challenge!
 
-## Getting Started
+## Configuração do Ambiente
 
-This project is a starting point for a Flutter application.
+Certifique-se de ter o Flutter instalado. Se não tiver, você pode seguir as instruções de instalação [aqui](https://flutter.dev/docs/get-started/install).
 
-A few resources to get you started if this is your first Flutter project:
+**Nota:** Este projeto requer Flutter 3.2.0 ou posterior.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Clone este repositório:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+git clone https://github.com/wallissonmart/challenge-2.git
+cd flutter_app_challenge
+
+## Instale as dependências:
+
+flutter pub get
+
+## Executando o Aplicativo
+
+Para executar o aplicativo, use o seguinte comando:
+
+flutter run
+
+Isso iniciará o aplicativo no seu emulador ou dispositivo conectado.
