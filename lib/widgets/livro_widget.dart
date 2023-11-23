@@ -117,7 +117,9 @@ class _LivroWidgetState extends State<LivroWidget> {
       themeColor: Theme.of(context).primaryColor,
       identifier: "bookIdentifier",
       scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
-
+      allowSharing: true,
+      enableTts: true,
+      nightMode: true,
     );
 
     await _downloadAndOpenBook();
