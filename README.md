@@ -10,7 +10,7 @@ Certifique-se de ter o Flutter instalado. Se não tiver, você pode seguir as in
 
 ## Clone este repositório:
 
-git clone https://github.com/wallissonmart/challenge-2.git
+git clone https://github.com/wallissonmart/challenge-2.git  
 cd flutter_app_challenge
 
 ## Instale as dependências:
