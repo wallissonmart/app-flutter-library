@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -66,7 +67,7 @@ class _LivroWidgetState extends State<LivroWidget> {
                 child: Center(
                   child: IconButton(
                     icon: Icon(
-                      isFavorito ? Icons.favorite : Icons.favorite_border,
+                      isFavorito ? Icons.bookmark : Icons.bookmark_border,
                       color: isFavorito ? Colors.red : Colors.white,
                     ),
                     onPressed: () async {
@@ -116,26 +117,45 @@ class _LivroWidgetState extends State<LivroWidget> {
       themeColor: Theme.of(context).primaryColor,
       identifier: "bookIdentifier",
       scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
-      allowSharing: true,
-      enableTts: true,
-      nightMode: true,
+
     );
 
     await _downloadAndOpenBook();
   }
 
   Future<void> _downloadAndOpenBook() async {
-    String path = await _downloadBook();
-    if (path.isNotEmpty) {
-      VocsyEpub.open(
-        path,
-        lastLocation: EpubLocator.fromJson({
-          "bookId": "bookId",
-          "href": "/OEBPS/ch06.xhtml",
-          "created": 1539934158390,
-          "locations": {"cfi": "epubcfi(/0!/4/4[simple_book]/2/2/6)"},
-        }),
-      );
+    Completer<String> downloadCompleter = Completer<String>();
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          title: Text('Baixando livro...'),
+          content: LinearProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      String path = await _downloadBook();
+      downloadCompleter.complete(path);
+      Navigator.pop(context);
+      if (path.isNotEmpty) {
+        await downloadCompleter.future;
+        VocsyEpub.open(
+          path,
+          lastLocation: EpubLocator.fromJson({
+            "bookId": "bookId",
+            "href": "/OEBPS/ch06.xhtml",
+            "created": 1539934158390,
+            "locations": {"cfi": "epubcfi(/0!/4/4[simple_book]/2/2/6)"},
+          }),
+        );
+      }
+    } catch (e) {
+      print('Erro durante o download e abertura do livro: $e');
+      Navigator.pop(context);
     }
   }
 
@@ -148,17 +168,21 @@ class _LivroWidgetState extends State<LivroWidget> {
     File file = File(path);
 
     if (!File(path).existsSync()) {
+      Completer<String> completer = Completer<String>();
+
       await file.create();
       await Dio().download(
         widget.livro.download,
         path,
         deleteOnError: true,
         onReceiveProgress: (receivedBytes, totalBytes) {
-          // Handle progress if needed
+          if (!completer.isCompleted) {
+            completer.complete(path);
+          }
         },
       );
 
-      return path;
+      return completer.future;
     } else {
       return path;
     }

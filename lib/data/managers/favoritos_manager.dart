@@ -23,10 +23,8 @@ class FavoritosManager {
     final favoritos = await getFavoritos();
 
     if (await isLivroFavorito(livro)) {
-      // Se o livro já estiver nos favoritos, remova-o
       favoritos.removeWhere((favLivro) => favLivro.id == livro.id);
     } else {
-      // Se o livro não estiver nos favoritos, adicione-o
       favoritos.add(livro);
     }
 

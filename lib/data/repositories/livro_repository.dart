@@ -27,7 +27,6 @@ class LivroRepository implements ILivroRepository {
       body.forEach((item) {
         final LivroModel livro = LivroModel.fromMap(item);
 
-        // Verifique se o livro com o mesmo ID já existe na lista
         if (livros.every((livroExistente) => livroExistente.id != livro.id)) {
           livros.add(livro);
         }

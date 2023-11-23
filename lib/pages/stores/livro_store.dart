@@ -6,14 +6,11 @@ import 'package:flutter_app_challenge/data/repositories/livro_repository.dart';
 class LivroStore {
   final ILivroRepository repository;
 
-  // Variável reativa para o loading
   final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
 
-  // Variável reativa para o state
   final ValueNotifier<List<LivroModel>> state =
       ValueNotifier<List<LivroModel>>([]);
 
-  // Variável reativa para o erro
   final ValueNotifier<String> erro = ValueNotifier<String>('');
 
   LivroStore({required this.repository});

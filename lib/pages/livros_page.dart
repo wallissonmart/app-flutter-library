@@ -48,8 +48,7 @@ class _LivrosPageState extends State<LivrosPage> {
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
+              
               ),
               itemCount: livros.length,
               itemBuilder: (BuildContext context, int index) {
