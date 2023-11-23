@@ -24,3 +24,5 @@ Para executar o aplicativo, use o seguinte comando:
 flutter run
 
 Isso iniciará o aplicativo no seu emulador ou dispositivo conectado.
+
+[Download APK](https://github.com/wallissonmart/challenge-2/releases/download/untagged-27a2df6de1fde470ad4d/app-release.apk)
